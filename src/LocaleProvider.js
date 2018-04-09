@@ -4,7 +4,6 @@ import get from 'lodash.get';
 import LocaleContext from './LocaleContext';
 import plural from './plural';
 
-
 class LocaleProvider extends Component {
     static propTypes = {
         children: PropTypes.any,
