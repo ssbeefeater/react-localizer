@@ -1,0 +1,260 @@
+# react-localizer
+
+### A simple minimal but powerful Internationalization library for react, using the context API
+
+---
+
+[Installation](#installation)
+
+[Examples](http://ssbeefeater.github.io/react-localizer)
+
+[Documentation](#documentation)
+
+---
+
+#### Installation
+
+Install with [yarn](https://yarnpkg.com) or [npm](https://www.npmjs.com/)
+
+```sh
+yarn add react-localizer
+        #or
+npm install react-localizer --save
+```
+---
+#### Examples
+
+
+Basic
+```javascript
+import React,{ Component } from 'react';
+import { render } from 'react-dom';
+import { LocaleProvider } from 'react-localizer';
+
+const source = {
+    hi:'Hello',
+    hiUser:'Hello $user',
+    onLine:'$onUsers online {plural($onUsers ,["user","users"])}',
+    deep:{
+        world:'World',
+    },
+}
+class MyRootComponent extends Component {
+    render() {
+        return (
+            <LocaleProvider language="en" source={source} >
+                <Text id="hi" />  // returns Hello
+                <Text>deep.world</Text>  // returns World
+                <Text values={{user:'Mike'}}>hiUser</Text>  // return Hello Mike
+                <Text plurals values={{onUsers:10}}>onLine</Text>  // returns 10 online users
+                <Text plurals values={{onUsers:1}}>onLine</Text>  // returns 1 online user
+                <Text>Doesn't exist</Text>  // returns Doesn't exist
+                <Text>Doesn't exist</Text>  // returns Doesn't exist
+            </LocaleProvider>
+        );
+    }
+}
+
+render(
+    <MyRootComponent/>,
+    document.getElementById('app'),
+);
+
+```
+
+
+Dynamic Change Language
+
+```javascript
+import React,{ Component } from 'react';
+import { render } from 'react-dom';
+import { LocaleProvider, withLocale } from 'react-localizer';
+
+const source = {
+    hi:'Hello',
+    hiUser:'Hello $user',
+    onLine:'$onUsers online {plural($onUsers ,["user","users"])}',
+    deep:{
+        world:'World',
+    },
+}
+
+// using split code or dynamic import
+class MyRootComponent extends Component {
+    render() {
+        return (
+            <LocaleProvider language="en" source={source} importer={(language)=>{
+                return import(`./locale/languages/${language}`);
+            }}>
+                <Text id="hi" />  // returns Hello
+            </LocaleProvider>
+        );
+    }
+}
+
+// using any external source code or dynamic import
+class MyRootComponent extends Component {
+    render() {
+        return (
+            <LocaleProvider language="en" source={source} importer={(language)=>{
+                if(language==='gr'){
+                    return axios.get('http://mylang.com/greek').then((resp)=>{
+                        return resp.data;
+                    })
+                }
+            }}>
+                <Text id="hi" />  // returns Hello
+            </LocaleProvider>
+        );
+    }
+}
+
+// using any object
+class MyRootComponent extends Component {
+    render() {
+        return (
+            <LocaleProvider language="en" source={source} importer={(language)=>{
+                return{test:'Hello world'}
+            }}>
+                <Text id="hi" />  // returns Hello
+            </LocaleProvider>
+        );
+    }
+}
+
+// trigger language change
+let Button= (props)=>{
+    return (
+        <button onClick={()=>props.locale.setLanguage('gr')}>Change to Greek</button>
+    )
+}
+
+Button = withLocale(Button);
+
+render(
+    <MyRootComponent/>,
+    document.getElementById('app'),
+);
+
+```
+
+
+Custom pluralize function
+```javascript
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { LocaleProvider } from 'react-localizer';
+import pluralize from 'pluralize'
+
+const source = {
+    oldOnLine: '$onUsers online {plural($onUsers ,["user","users"])}', // before we change pluralize
+    newOnLine: '$onUsers online {plural(user, $onUsers)}', // after we change pluralize
+}
+class MyRootComponent extends Component {
+    render() {
+        return (
+
+            <LocaleProvider pluralize={(language, args) => { // args will be tha arguments you specified in plural function above
+                return pluralize(...args);
+            }} language="en" source={source} >
+                <Text plurals values={{ onUsers: 10 }}>newOnLine</Text>  // returns 10 online users
+                <Text plurals values={{ onUsers: 10 }}>oldOnLine</Text>  // will not work or you must handle it by your self to make it work
+            </LocaleProvider>
+        );
+    }
+}
+
+render(
+    <MyRootComponent />,
+    document.getElementById('app'),
+);
+
+```
+
+
+# Documentation
+
+
+### withLocale
+
+A function that wraps a component and give access to the locale object through it's props
+
+example:
+
+```javascript
+class Button extends React.Component{
+    render(){
+        const {
+            locale,
+        } = this.props;
+        return (
+            <button onClick={()=>locale.setLanguage('gr')}>{locale.get('button.changeLanguage')}</button>
+        )
+    }
+}
+
+
+export default withLocale(Button);
+
+```
+locale:
+
+| propType    | description |
+| ------------- | ------------- |
+| setLanguage(language: string) | changes the language |
+| get(textId: string) | returns the selected text from source |
+| language: string | the current language |
+
+
+### LocaleProvider
+
+A component intended to wrap the root App or the all the component that need to have localization
+
+example:
+
+```javascript
+
+class App extends React.Component {
+    render() {
+        return (
+            <LocaleProvider language="en" source={{ test: 'Hello world' }}>
+                <Text>test</Text>
+            </LocaleProvider >
+        );
+    }
+}
+
+```
+
+| propType  | required | default  | description |
+| ------------- | ------------- | ------------- | ------------- |
+| importer:(language:string)=>Promise({})  | no | - | a function responsible for returning the language recourse when setLanguage will execute |
+| language: string) | no | 'en' | the default language |
+| source: object | yes | - | the default language source |
+| disabled(bool) | no | - | set the form in a disabled state |
+| pluralize: (language:string, args:[])=>Promise({}) | no | - | The custom function responsible for pluralizing words |
+
+### Text
+
+A component to help you get started using react-localizer. Is responsible for returning the correct value
+
+```javascript
+
+class App extends React.Component {
+    render() {
+        return (
+            <LocaleProvider language="en" source={{ test: 'Hello world' }}>
+                <Text>test</Text> // returns 'Hello world'
+            </LocaleProvider >
+        );
+    }
+}
+
+```
+
+| propType  | required | default  | description |
+| ------------- | ------------- | ------------- | ------------- |
+| id: string  | no | 18 | - | the word id. If word not found will return the id it self|
+| children: string  | no | 18 | - | the word id. If word not found will return the id it self|
+| component: Function or string | no | 'p' | the component that will wrap the world language source|
+| plurals: bool | no | - | if true will check for plurals |

@@ -1,0 +1,12 @@
+__test__
+.storybook
+node_modules/
+coverage
+src
+stories
+storybook-static
+.babelrc
+.eslintrc
+.gitignore
+jest.config.js
+webpack.config.js
