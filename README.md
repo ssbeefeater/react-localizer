@@ -46,8 +46,8 @@ class MyRootComponent extends Component {
                 <Text id="hi" />  // returns Hello
                 <Text>deep.world</Text>  // returns World
                 <Text values={{user:'Mike'}}>hiUser</Text>  // return Hello Mike
-                <Text plurals values={{onUsers:10}}>onLine</Text>  // returns 10 online users
-                <Text plurals values={{onUsers:1}}>onLine</Text>  // returns 1 online user
+                <Text values={{onUsers:10}}>onLine</Text>  // returns 10 online users
+                <Text values={{onUsers:1}}>onLine</Text>  // returns 1 online user
                 <Text>Doesn't exist</Text>  // returns Doesn't exist
                 <Text>Doesn't exist</Text>  // returns Doesn't exist
             </LocaleProvider>
@@ -157,8 +157,8 @@ class MyRootComponent extends Component {
             <LocaleProvider pluralize={(language, args) => { // args will be tha arguments you specified in plural function above
                 return pluralize(...args);
             }} language="en" source={source} >
-                <Text plurals values={{ onUsers: 10 }}>newOnLine</Text>  // returns 10 online users
-                <Text plurals values={{ onUsers: 10 }}>oldOnLine</Text>  // will not work or you must handle it by your self to make it work
+                <Text values={{ onUsers: 10 }}>newOnLine</Text>  // returns 10 online users
+                <Text values={{ onUsers: 10 }}>oldOnLine</Text>  // will not work or you must handle it by your self to make it work
             </LocaleProvider>
         );
     }
@@ -257,4 +257,3 @@ class App extends React.Component {
 | id: string  | no | 18 | - | the word id. If word not found will return the id it self|
 | children: string  | no | 18 | - | the word id. If word not found will return the id it self|
 | component: Function or string | no | 'p' | the component that will wrap the world language source|
-| plurals: bool | no | - | if true will check for plurals |

@@ -22,8 +22,8 @@ storiesOf('Locale', module)
     )))
     .add('With Plurals', withInfo()(() => (
         <LocaleProvider language="en" source={{ withVariables: '{plural($users, ["user","users"] )}' }} >
-            <Text plurals id="withVariables" values={{ users: 1 }} />
-            <Text plurals id="withVariables" values={{ users: 2 }} />
+            <Text id="withVariables" values={{ users: 1 }} />
+            <Text id="withVariables" values={{ users: 2 }} />
         </ LocaleProvider>
     )))
     .add('Change language', withInfo()(() => {
@@ -34,7 +34,7 @@ storiesOf('Locale', module)
         Button.displayName = 'Button';
         return (
             <LocaleProvider importer={() => Promise.resolve({ test: 'Γεια' })} language="en" source={{ test: 'Hello' }} >
-                <Text plurals id="test" /><br />
+                <Text id="test" /><br />
                 <Button />
             </LocaleProvider>
         );

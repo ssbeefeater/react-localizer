@@ -10,11 +10,10 @@ const Text = (props) => {
         children,
         component: Component,
         locale,
-        plurals,
         ...restProps
     } = props;
 
-    const txt = locale.get(String(id || children), values, plurals);
+    const txt = locale.get(String(id || children), values);
     return (
         <Component {...restProps}>
             {txt}
@@ -29,7 +28,6 @@ Text.defaultProps = {
 Text.propTypes = {
     id: PropTypes.string,
     values: PropTypes.object,
-    plurals: PropTypes.bool,
     component: PropTypes.string,
     children: PropTypes.string,
     locale: localeShape,

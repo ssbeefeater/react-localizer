@@ -50,15 +50,13 @@ class LocaleProvider extends Component {
         }
         return Promise.resolve(null, language);
     }
-    get = (textKey, values, plurals) => {
+    get = (textKey, values) => {
         let text;
         if (!textKey) return '';
         text = get(this.state.source, textKey);
         if (text && values) {
             text = LocaleProvider.replaceText(text, values);
-            if (plurals) {
-                text = this.pluralize(text, textKey);
-            }
+            text = this.pluralize(text, textKey);
         }
         return text || textKey;
     }
