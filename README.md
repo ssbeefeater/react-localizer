@@ -257,7 +257,7 @@ class App extends React.Component {
 
 | propType  | required | default  | description |
 | ------------- | ------------- | ------------- | ------------- |
-| id: string  | no | 18 | - | the word id. If word not found will return the id it self|
-| children: string  | no | 18 | - | the word id. If word not found will return the id it self|
-| component: Function or string | no | 'p' | the component that will wrap the world language source|
+| id: string  | no |  - | the word id. If word not found will return the id it self|
+| children: string  | no |  - | the word id. If word not found will return the id it self|
+| component: Function or string | no | 'p' | the component that will wrap the word |
 | plurals: bool | no | - | if true will check for plurals |
