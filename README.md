@@ -2,6 +2,9 @@
 
 ### A simple minimal but powerful Internationalization library for react, using the context API
 
+
+For react 16.3 and above
+
 ---
 
 [Installation](#installation)
