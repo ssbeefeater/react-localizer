@@ -205,7 +205,7 @@ locale:
 | propType    | description |
 | ------------- | ------------- |
 | setLanguage(language: string) | changes the language |
-| get(textId: string) | returns the selected text from source |
+| get(textId: string, values:object) | returns the selected text from source |
 | language: string | the current language |
 
 
