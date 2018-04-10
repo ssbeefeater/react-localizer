@@ -11,7 +11,7 @@ For react 16.3 and above
 
 [Examples](http://ssbeefeater.github.io/react-localizer)
 
-[Usage](#Usage)
+[Usage](#usage)
 
 [Documentation](#documentation)
 
