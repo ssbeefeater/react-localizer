@@ -32,7 +32,7 @@ Basic
 ```javascript
 import React,{ Component } from 'react';
 import { render } from 'react-dom';
-import { LocaleProvider } from 'react-localizer';
+import { LocaleProvider,Text } from 'react-localizer';
 
 const source = {
     hi:'Hello',
@@ -71,7 +71,7 @@ Dynamic Change Language
 ```javascript
 import React,{ Component } from 'react';
 import { render } from 'react-dom';
-import { LocaleProvider, withLocale } from 'react-localizer';
+import { LocaleProvider, withLocale, Text } from 'react-localizer';
 
 const source = {
     hi:'Hello',
@@ -146,7 +146,7 @@ Custom pluralize function
 ```javascript
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { LocaleProvider } from 'react-localizer';
+import { LocaleProvider, Text  } from 'react-localizer';
 import pluralize from 'pluralize'
 
 const source = {
@@ -205,7 +205,7 @@ locale:
 | propType    | description |
 | ------------- | ------------- |
 | setLanguage(language: string) | changes the language |
-| get(textId: string) | returns the selected text from source |
+| get(textId: string, values:object) | returns the selected text from source |
 | language: string | the current language |
 
 
