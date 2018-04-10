@@ -11,6 +11,7 @@ class LocaleProvider extends Component {
         source: PropTypes.object.isRequired,
         importer: PropTypes.func,
         pluralize: PropTypes.func,
+        textParser: PropTypes.func,
     };
     static defaultProps = {
         language: 'en',
@@ -19,6 +20,7 @@ class LocaleProvider extends Component {
         super();
         const { language, source } = props;
         this.plural = props.pluralize || plural;
+        this.parseText = props.textParser || this.parseText;
         this.state = {
             source,
             language,
@@ -50,14 +52,21 @@ class LocaleProvider extends Component {
         return Promise.resolve(null, language);
     }
     get = (textKey, values) => {
-        let text;
-        if (!textKey) return '';
+        let text = textKey;
+        if (!text) {
+            return '';
+        }
         text = get(this.state.source, textKey);
+        text = this.parseText(text, values);
+        return text || textKey;
+    }
+    parseText = (textKey, values) => {
+        let text = textKey;
         if (text && values) {
             text = LocaleProvider.replaceText(text, values);
             text = this.pluralize(text, textKey);
         }
-        return text || textKey;
+        return text;
     }
     static replaceText = (text, replaceWith) => {
         if (typeof text !== 'string' || !replaceWith) {

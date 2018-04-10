@@ -1,6 +1,7 @@
 import React from 'react';
 import { withInfo } from '@storybook/addon-info';
 import { storiesOf } from '@storybook/react';
+import Handlebars from 'handlebars/runtime';
 import { Text, LocaleProvider, withLocale } from '../src';
 
 Text.displayName = 'Text';
@@ -25,6 +26,16 @@ storiesOf('Locale', module)
             <Text id="withVariables" values={{ users: 1 }} />
             <Text id="withVariables" values={{ users: 2 }} />
         </ LocaleProvider>
+    )))
+    .add('With Html', withInfo()(() => (
+        <LocaleProvider language="en" source={{ withHtml: '<a href="https://github.com/ssbeefeater/react-localizer" target="_blank">REACT-LOCALIZER</a>' }} >
+            <Text html id="withHtml" />
+        </LocaleProvider>
+    )))
+    .add('With custom textParser', withInfo()(() => (
+        <LocaleProvider textParser={(text, values) => { return 'Mpamies' }} language="en" source={{ withHtml: '<a href="https://github.com/ssbeefeater/react-localizer" target="_blank">REACT-LOCALIZER</a>' }} >
+            <Text html id="withHtml" />
+        </LocaleProvider>
     )))
     .add('Change language', withInfo()(() => {
         let Button = props => (
