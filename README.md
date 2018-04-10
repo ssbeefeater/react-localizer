@@ -38,6 +38,7 @@ const source = {
     hi:'Hello',
     hiUser:'Hello $user',
     onLine:'$onUsers online {plural($onUsers ,["user","users"])}',
+    withHtml:'<h1>react-localizer</h1>',
     deep:{
         world:'World',
     },
@@ -48,9 +49,11 @@ class MyRootComponent extends Component {
             <LocaleProvider language="en" source={source} >
                 <Text id="hi" />  // returns Hello
                 <Text>deep.world</Text>  // returns World
-                <Text values={{user:'Mike'}}>hiUser</Text>  // return Hello Mike
+                <Text id="hiUser" values={{user:'Mike'}}/>  // returns Hello Mike
                 <Text values={{onUsers:10}}>onLine</Text>  // returns 10 online users
                 <Text values={{onUsers:1}}>onLine</Text>  // returns 1 online user
+                <Text id="withHtml" html/>  // returns 1 online user
+                <Text>Doesn't exist</Text>  // returns Doesn't exist
                 <Text>Doesn't exist</Text>  // returns Doesn't exist
                 <Text>Doesn't exist</Text>  // returns Doesn't exist
             </LocaleProvider>
@@ -174,6 +177,39 @@ render(
 
 ```
 
+### Custom text parser
+You can define your own text parser and handle the templating for the texts.
+
+```Warning!``` The default templating and plural will not work if you define your own textParser. Ypu must handle this behavior by your self or use a template engine like mustache (not recommended)
+
+```javascript
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { LocaleProvider, Text  } from 'react-localizer';
+import pluralize from 'pluralize'
+
+const source = {
+    awesome: 'Awesome',
+    impressive: 'Impressive',
+}
+class MyRootComponent extends Component {
+    render() {
+        return (
+            <LocaleProvider textParser={(text, values) => `${text} - react-localizer`} language="en" source={source} >
+                <Text>awesome</Text>  // returns Awesome - react-localizer
+                <Text>impressive</Text>  // return Impressive - react-localizer
+            </LocaleProvider>
+        );
+    }
+}
+
+render(
+    <MyRootComponent />,
+    document.getElementById('app'),
+);
+
+```
+
 
 # Documentation
 
@@ -235,7 +271,8 @@ class App extends React.Component {
 | language: string) | no | 'en' | the default language |
 | source: object | yes | - | the default language source |
 | disabled(bool) | no | - | set the form in a disabled state |
-| pluralize: (language:string, args:[])=>Promise({}) | no | - | The custom function responsible for pluralizing words |
+| pluralize: (language:string, args:[])=>Promise({}) \| object | no | - | The custom function responsible for pluralizing words |
+| textParser: (text:string, values:object)=>string | no | - | The custom function responsible for parsing the text.```Warning``` Plural and default engine that handles variables will not work. You must handle it by your self |
 
 ### Text
 
@@ -260,3 +297,4 @@ class App extends React.Component {
 | id: string  | no | - | the word id. If word not found will return the id it self|
 | children: string  | no | - | the word id. If word not found will return the id it self|
 | component: Function or string | no | 'p' | the component that will wrap the world language source|
+| html: boolean  | no | - | Defines when the text is html string|
