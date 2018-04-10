@@ -33,7 +33,7 @@ storiesOf('Locale', module)
         </LocaleProvider>
     )))
     .add('With custom textParser', withInfo()(() => (
-        <LocaleProvider textParser={(text, values) => { return 'Mpamies' }} language="en" source={{ withHtml: '<a href="https://github.com/ssbeefeater/react-localizer" target="_blank">REACT-LOCALIZER</a>' }} >
+        <LocaleProvider textParser={(text, values) => `${text} - react-localizer`} language="en" source={{ awesome: 'Awesome' }} >
             <Text html id="withHtml" />
         </LocaleProvider>
     )))
