@@ -33,7 +33,7 @@ Text.defaultProps = {
 Text.propTypes = {
     id: PropTypes.string,
     values: PropTypes.object,
-    component: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     locale: localeShape,
     html: PropTypes.bool,
