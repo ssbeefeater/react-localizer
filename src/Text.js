@@ -28,8 +28,8 @@ Text.defaultProps = {
 Text.propTypes = {
     id: PropTypes.string,
     values: PropTypes.object,
-    component: PropTypes.string,
-    children: PropTypes.string,
+    component: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    children: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     locale: localeShape,
 };
 
