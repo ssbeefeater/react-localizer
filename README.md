@@ -59,8 +59,6 @@ class MyRootComponent extends Component {
                 <Text values={{onUsers:1}}>onLine</Text>  // returns 1 online user
                 <Text id="withHtml" html/>  // returns 1 online user
                 <Text>Doesn't exist</Text>  // returns Doesn't exist
-                <Text>Doesn't exist</Text>  // returns Doesn't exist
-                <Text>Doesn't exist</Text>  // returns Doesn't exist
             </LocaleProvider>
         );
     }
