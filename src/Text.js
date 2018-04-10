@@ -10,10 +10,15 @@ const Text = (props) => {
         children,
         component: Component,
         locale,
+        html,
         ...restProps
     } = props;
 
-    const txt = locale.get(String(id || children), values);
+    const txt = locale.get(id || children, values);
+
+    if (html) {
+        return <Component {...restProps} dangerouslySetInnerHTML={html && { __html: txt }} />;
+    }
     return (
         <Component {...restProps}>
             {txt}
@@ -31,6 +36,7 @@ Text.propTypes = {
     component: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     locale: localeShape,
+    html: PropTypes.bool,
 };
 
 
