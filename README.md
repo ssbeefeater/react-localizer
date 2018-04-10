@@ -11,6 +11,8 @@ For react 16.3 and above
 
 [Examples](http://ssbeefeater.github.io/react-localizer)
 
+[Usage](#usage)
+
 [Documentation](#documentation)
 
 ---
@@ -25,8 +27,11 @@ yarn add react-localizer
 npm install react-localizer --save
 ```
 ---
-#### Examples
 
+
+#### Usage
+
+Just wrap you root App component with the ```LocaleProvider``` and use the ```<Text/>``` component anywhere in your app.
 
 Basic
 ```javascript
@@ -53,8 +58,6 @@ class MyRootComponent extends Component {
                 <Text values={{onUsers:10}}>onLine</Text>  // returns 10 online users
                 <Text values={{onUsers:1}}>onLine</Text>  // returns 1 online user
                 <Text id="withHtml" html/>  // returns 1 online user
-                <Text>Doesn't exist</Text>  // returns Doesn't exist
-                <Text>Doesn't exist</Text>  // returns Doesn't exist
                 <Text>Doesn't exist</Text>  // returns Doesn't exist
             </LocaleProvider>
         );
