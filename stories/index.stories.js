@@ -32,6 +32,14 @@ storiesOf('Locale', module)
             <Text html id="withHtml" />
         </LocaleProvider>
     )))
+    .add('With custom component', withInfo()(() => {
+        const Typography = props => <div style={{ color: 'green' }}>{props.children}</div>;
+        return (
+            <LocaleProvider source={{ awesome: 'Awesome' }} >
+                <Text id="awesome" component={Typography} />
+            </LocaleProvider>
+        );
+    }))
     .add('With custom textParser', withInfo()(() => (
         <LocaleProvider textParser={(text, values) => `${text} - react-localizer`} language="en" source={{ awesome: 'Awesome' }} >
             <Text id="awesome" />
