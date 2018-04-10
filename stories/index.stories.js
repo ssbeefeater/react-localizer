@@ -34,7 +34,7 @@ storiesOf('Locale', module)
     )))
     .add('With custom textParser', withInfo()(() => (
         <LocaleProvider textParser={(text, values) => `${text} - react-localizer`} language="en" source={{ awesome: 'Awesome' }} >
-            <Text html id="withHtml" />
+            <Text id="awesome" />
         </LocaleProvider>
     )))
     .add('Change language', withInfo()(() => {
