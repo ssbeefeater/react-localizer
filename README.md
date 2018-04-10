@@ -11,6 +11,8 @@ For react 16.3 and above
 
 [Examples](http://ssbeefeater.github.io/react-localizer)
 
+[Usage](#Usage)
+
 [Documentation](#documentation)
 
 ---
@@ -25,8 +27,11 @@ yarn add react-localizer
 npm install react-localizer --save
 ```
 ---
-#### Examples
 
+
+#### Usage
+
+Just wrap you root App component with the ```LocaleProvider``` and use the ```<Text/>``` component anywhere in your app.
 
 Basic
 ```javascript
