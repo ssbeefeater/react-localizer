@@ -33,7 +33,7 @@ npm install react-localizer --save
 
 Just wrap you root App component with the ```LocaleProvider``` and use the ```<Text/>``` component anywhere in your app.
 
-Basic
+##### Basic
 ```javascript
 import React,{ Component } from 'react';
 import { render } from 'react-dom';
@@ -70,7 +70,59 @@ render(
 );
 
 ```
+[withLocale](#withLocale)
 
+ withLocale is higher order component that gives access to any component, to locale object that contains setLanguage, get function
+ and language refers to current language
+
+
+```javascript
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { LocaleProvider, withLocale } from 'react-localizer';
+
+const source = {
+    hello:'Hello $user'
+}
+
+class AnyComponent extends Component{
+    render(){
+        const { locale, username } = this.props;
+        const hiUser = locale.get('hello',{
+            user:username
+        });
+        return(
+            <div>
+                <span>{hiUser}</span>
+                <br/>
+                <button onClick={()=>locale.setLanguage('gr')}>Change to Greek</button>
+            </div>
+        );
+    }
+}
+
+const MyAnyComponent = withLocale(AnyComponent);
+
+class MyRootComponent extends Component {
+    render() {
+        return (
+            <LocaleProvider language="en" source={source} importer={()=>{
+                    if(language==='gr'){
+                        return ({ hello:'Γεια $user'})
+                    }
+                 }}>
+                <MyAnyComponent username="Mike" />
+            </LocaleProvider>
+        );
+    }
+}
+
+render(
+    <MyRootComponent/>,
+    document.getElementById('app'),
+);
+
+```
 
 Dynamic Change Language
 
