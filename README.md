@@ -81,10 +81,6 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { LocaleProvider, withLocale } from 'react-localizer';
 
-const source = {
-    hello:'Hello $user'
-}
-
 class AnyComponent extends Component{
     render(){
         const { locale, username } = this.props;
@@ -102,6 +98,11 @@ class AnyComponent extends Component{
 }
 
 const MyAnyComponent = withLocale(AnyComponent);
+
+
+const source = {
+    hello:'Hello $user'
+}
 
 class MyRootComponent extends Component {
     render() {
