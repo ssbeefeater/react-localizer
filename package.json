@@ -5,6 +5,7 @@
   "main": "./react-localizer",
   "scripts": {
     "start": "start-storybook -p 6006",
+    "prepublish":"yarn build",
     "build": "webpack --mode=development",
     "test": "jest --coverage",
     "build-storybook": "build-storybook"
