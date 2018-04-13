@@ -323,7 +323,7 @@ class App extends React.Component {
 
 | propType  | required | default  | description |
 | ------------- | ------------- | ------------- | ------------- |
-| importer:(language:string)=>Promise({})  | no | - | a function responsible for returning the language recourse when setLanguage will execute |
+| importer:(language:string)=>Promise({})  | no | - | a function responsible for returning the language resources when setLanguage will execute |
 | language: string) | no | 'en' | the default language |
 | source: object | yes | - | the default language source |
 | disabled(bool) | no | - | set the form in a disabled state |
