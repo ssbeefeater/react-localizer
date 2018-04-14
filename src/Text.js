@@ -17,7 +17,7 @@ const Text = (props) => {
     const txt = locale.get(id || children, values);
 
     if (html) {
-        return <Component {...restProps} dangerouslySetInnerHTML={html && { __html: txt }} />;
+        return <Component {...restProps} dangerouslySetInnerHTML={{ __html: txt }} />;
     }
     return (
         <Component {...restProps}>
