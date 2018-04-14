@@ -57,7 +57,7 @@ class MyRootComponent extends Component {
                 <Text id="hiUser" values={{user:'Mike'}}/>  // returns Hello Mike
                 <Text values={{onUsers:10}}>onLine</Text>  // returns 10 online users
                 <Text values={{onUsers:1}}>onLine</Text>  // returns 1 online user
-                <Text id="withHtml" html/>  // returns 1 online user
+                <Text html id="withHtml"/>  
                 <Text>Doesn't exist</Text>  // returns Doesn't exist
             </LocaleProvider>
         );
