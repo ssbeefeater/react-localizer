@@ -326,7 +326,6 @@ class App extends React.Component {
 | importer:(language:string)=>Promise({})  | no | - | a function responsible for returning the language resources when setLanguage will execute |
 | language: string) | no | 'en' | the default language |
 | source: object | yes | - | the default language source |
-| disabled(bool) | no | - | set the form in a disabled state |
 | pluralize: (language:string, args:[])=>Promise({}) \| object | no | - | The custom function responsible for pluralizing words |
 | textParser: (text:string, values:object)=>string | no | - | The custom function responsible for parsing the text.```Warning``` Plural and default engine that handles variables will not work. You must handle it by your self |
 
