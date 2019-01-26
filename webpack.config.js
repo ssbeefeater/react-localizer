@@ -15,6 +15,7 @@ module.exports = {
         chunkFilename: '[id].chunk.js',
         path: __dirname,
         publicPath: '/dist',
+        libraryTarget: 'umd',
         library: 'reactLocalizer',
     },
     module: {
