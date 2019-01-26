@@ -16,7 +16,7 @@ module.exports = {
         path: __dirname,
         publicPath: '/dist',
         libraryTarget: 'umd',
-        library: 'reactLocalizer',
+        library: 'react-localizer',
     },
     module: {
         rules: [
