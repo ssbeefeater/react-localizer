@@ -41,6 +41,7 @@ import { LocaleProvider,Text } from 'react-localizer';
 
 const source = {
     hi:'Hello',
+    hiWorld:'hello world',
     hiUser:'Hello $user',
     onLine:'$onUsers online {plural($onUsers ,["user","users"])}',
     deep:{
@@ -52,10 +53,14 @@ class MyRootComponent extends Component {
         return (
             <LocaleProvider language="en" source={source} >
                 <Text text="hi" />  // returns Hello
+                <Text upperCase text="hi" />  // returns Hello
+                <Text upperCase text="hi" />  // returns HELLO
+                <Text lowerCase text="hi" />  // returns hello
+                <Text upperFirst text="hiWorld" />  // returns Hello world
                 <Text>deep.world</Text>  // returns World
-                <Text text="hiUser" values={{user:'Mike'}}/>  // returns Hello Mike
-                <Text values={{onUsers:10}}>onLine</Text>  // returns 10 online users
-                <Text values={{onUsers:1}}>onLine</Text>  // returns 1 online user
+                <Text text="hiUser" variables={{user:'Mike'}}/>  // returns Hello Mike
+                <Text variables={{onUsers:10}}>onLine</Text>  // returns 10 online users
+                <Text variables={{onUsers:1}}>onLine</Text>  // returns 1 online user
                 <Text>Doesn't exist</Text>  // returns Doesn't exist
             </LocaleProvider>
         );
@@ -83,7 +88,9 @@ class AnyComponent extends Component{
     render(){
         const { locale, username } = this.props;
         const hiUser = locale.get('hello',{
-            user:username
+            variables:{
+                user:username
+            }
         });
         return(
             <div>
@@ -295,7 +302,7 @@ locale:
 | propType    | description |
 | ------------- | ------------- |
 | setLanguage(language: string) | changes the language |
-| get(textId: string, values:object) | returns the selected text from source |
+| get(textId: string, options: { variables: object, nullable: boolean }) | returns the selected text from source. if options.nullable is true will return null if no text found else will return back the textId. |
 | language: string | the current language |
 
 
@@ -347,7 +354,10 @@ class App extends React.Component {
 
 | propType  | required | default  | description |
 | ------------- | ------------- | ------------- | ------------- |
-| text: string  | no | - | the word text. If word not found will return the text it self|
-| children: string  | no | - | the word text. If word not found will return the text it self|
-| component: Function or string | no | 'p' | the component that will wrap the world language source|
-| html: boolean  | no | - | Defines when the text is html string|
+| text: string  | no | - | the word text. If word not found will return the text or null if nullable prop is true|
+| children: string  | no | - | the word text. If word not found will return the text or null if nullable prop is true|
+| variables: object | no | - | the variables of the text that will be replaced|
+| nullable: boolean  | no | false | if true will return null if the text no found else will return back the text prop|
+| lowerCase: boolean  | no | - | return the text in lowerCase |
+| upperCase: boolean  | no | - | return the text in upperCase |
+| upperFirst: boolean  | no | - | returns the first letter text in upperCase |

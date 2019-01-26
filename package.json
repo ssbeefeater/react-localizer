@@ -1,6 +1,6 @@
 {
   "name": "react-localizer",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "A simple minimal but powerful Internationalization library for react, using the context API",
   "main": "./react-localizer",
   "types": "./",

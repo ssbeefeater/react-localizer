@@ -51,14 +51,18 @@ class LocaleProvider extends Component {
         }
         return Promise.resolve(null, language);
     }
-    get = (textKey, values) => {
+    get = (textKey, options = {}) => {
+        const {
+            nullable,
+            variables,
+        } = options;
         let text = textKey;
         if (!text) {
             return '';
         }
         text = get(this.state.source, textKey);
-        text = this.parseText(text, values);
-        return text || textKey;
+        text = this.parseText(text, variables);
+        return text || (nullable ? null : textKey);
     }
     parseText = (textKey, values) => {
         let text = textKey;
