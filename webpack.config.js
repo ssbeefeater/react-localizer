@@ -15,7 +15,7 @@ module.exports = {
         chunkFilename: '[id].chunk.js',
         path: __dirname,
         publicPath: '/dist',
-        library: 'react-localizer',
+        library: 'reactLocalizer',
     },
     module: {
         rules: [
@@ -29,5 +29,4 @@ module.exports = {
         ],
     },
 };
-
 
