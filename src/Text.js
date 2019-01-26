@@ -1,42 +1,24 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import withLocale from './withLocale';
 import localeShape from './localeShape';
 
 const Text = (props) => {
     const {
-        id,
+        text,
         values,
         children,
-        component: Component,
         locale,
-        html,
-        ...restProps
     } = props;
 
-    const txt = locale ? locale.get(id || children, values) : id || children;
-
-    if (html) {
-        return <Component {...restProps} dangerouslySetInnerHTML={{ __html: txt }} />;
-    }
-    return (
-        <Component {...restProps}>
-            {txt}
-        </Component>
-    );
-};
-
-Text.defaultProps = {
-    component: 'p',
+    const txt = locale ? locale.get(text || children, values) : text || children;
+    return txt;
 };
 
 Text.propTypes = {
-    id: PropTypes.string,
+    text: PropTypes.string,
     values: PropTypes.object,
-    component: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     children: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     locale: localeShape,
-    html: PropTypes.bool,
 };
 
 

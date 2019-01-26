@@ -1,7 +1,6 @@
 import React from 'react';
 import { withInfo } from '@storybook/addon-info';
 import { storiesOf } from '@storybook/react';
-import Handlebars from 'handlebars/runtime';
 import { Text, LocaleProvider, withLocale } from '../src';
 
 Text.displayName = 'Text';
@@ -13,36 +12,23 @@ storiesOf('Locale', module)
     )))
     .add('Nested value', withInfo()(() => (
         <LocaleProvider language="en" source={{ nested: { test: 'Test Nested Locale' } }} >
-            <Text id="nested.test" />
+            <Text text="nested.test" />
         </ LocaleProvider>
     )))
     .add('With variables', withInfo()(() => (
         <LocaleProvider language="en" source={{ withVariables: 'Hello, $user' }} >
-            <Text id="withVariables" values={{ user: 'Mike' }} />
+            <Text text="withVariables" values={{ user: 'Mike' }} />
         </ LocaleProvider>
     )))
     .add('With Plurals', withInfo()(() => (
         <LocaleProvider language="en" source={{ withVariables: '{plural($users, ["user","users"] )}' }} >
-            <Text id="withVariables" values={{ users: 1 }} />
-            <Text id="withVariables" values={{ users: 2 }} />
+            <div><Text text="withVariables" values={{ users: 1 }} /></div>
+            <div> <Text text="withVariables" values={{ users: 2 }} /></div>
         </ LocaleProvider>
     )))
-    .add('With Html', withInfo()(() => (
-        <LocaleProvider language="en" source={{ withHtml: '<a href="https://github.com/ssbeefeater/react-localizer" target="_blank">REACT-LOCALIZER</a>' }} >
-            <Text html id="withHtml" />
-        </LocaleProvider>
-    )))
-    .add('With custom component', withInfo()(() => {
-        const Typography = props => <div style={{ color: 'green' }}>{props.children}</div>;
-        return (
-            <LocaleProvider source={{ awesome: 'Awesome' }} >
-                <Text id="awesome" component={Typography} />
-            </LocaleProvider>
-        );
-    }))
     .add('With custom textParser', withInfo()(() => (
         <LocaleProvider textParser={(text, values) => `${text} - react-localizer`} language="en" source={{ awesome: 'Awesome' }} >
-            <Text id="awesome" />
+            <Text text="awesome" />
         </LocaleProvider>
     )))
     .add('Change language', withInfo()(() => {
@@ -53,7 +39,7 @@ storiesOf('Locale', module)
         Button.displayName = 'Button';
         return (
             <LocaleProvider importer={() => Promise.resolve({ test: 'Γεια' })} language="en" source={{ test: 'Hello' }} >
-                <Text id="test" /><br />
+                <Text text="test" /><br />
                 <Button />
             </LocaleProvider>
         );

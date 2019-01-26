@@ -43,7 +43,6 @@ const source = {
     hi:'Hello',
     hiUser:'Hello $user',
     onLine:'$onUsers online {plural($onUsers ,["user","users"])}',
-    withHtml:'<h1>react-localizer</h1>',
     deep:{
         world:'World',
     },
@@ -52,12 +51,11 @@ class MyRootComponent extends Component {
     render() {
         return (
             <LocaleProvider language="en" source={source} >
-                <Text id="hi" />  // returns Hello
+                <Text text="hi" />  // returns Hello
                 <Text>deep.world</Text>  // returns World
-                <Text id="hiUser" values={{user:'Mike'}}/>  // returns Hello Mike
+                <Text text="hiUser" values={{user:'Mike'}}/>  // returns Hello Mike
                 <Text values={{onUsers:10}}>onLine</Text>  // returns 10 online users
                 <Text values={{onUsers:1}}>onLine</Text>  // returns 1 online user
-                <Text html id="withHtml"/>  
                 <Text>Doesn't exist</Text>  // returns Doesn't exist
             </LocaleProvider>
         );
@@ -148,7 +146,7 @@ class MyRootComponent extends Component {
             <LocaleProvider language="en" source={source} importer={(language)=>{
                 return import(`./locale/languages/${language}`);
             }}>
-                <Text id="hi" />  // returns Hello
+                <Text text="hi" />  // returns Hello
             </LocaleProvider>
         );
     }
@@ -165,7 +163,7 @@ class MyRootComponent extends Component {
                     })
                 }
             }}>
-                <Text id="hi" />  // returns Hello
+                <Text text="hi" />  // returns Hello
             </LocaleProvider>
         );
     }
@@ -178,7 +176,7 @@ class MyRootComponent extends Component {
             <LocaleProvider language="en" source={source} importer={(language)=>{
                 return{test:'Hello world'}
             }}>
-                <Text id="hi" />  // returns Hello
+                <Text text="hi" />  // returns Hello
             </LocaleProvider>
         );
     }
@@ -272,7 +270,7 @@ render(
 
 ### withLocale
 
-A function that wraps a component and give access to the locale object through it's props
+A hoc that passes the locale object through it's props
 
 example:
 
@@ -349,7 +347,7 @@ class App extends React.Component {
 
 | propType  | required | default  | description |
 | ------------- | ------------- | ------------- | ------------- |
-| id: string  | no | - | the word id. If word not found will return the id it self|
-| children: string  | no | - | the word id. If word not found will return the id it self|
+| text: string  | no | - | the word text. If word not found will return the text it self|
+| children: string  | no | - | the word text. If word not found will return the text it self|
 | component: Function or string | no | 'p' | the component that will wrap the world language source|
 | html: boolean  | no | - | Defines when the text is html string|
