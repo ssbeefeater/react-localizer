@@ -16,6 +16,10 @@ const Text = (props) => {
         locale,
     } = props;
 
+    if (typeof (text || children) !== 'string') {
+        return text || children || null;
+    }
+
     const txt = locale ? locale.get(text || children, { variables, nullable }) : text || children;
 
     if (upperCase) {
