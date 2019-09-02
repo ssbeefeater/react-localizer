@@ -130,6 +130,28 @@ render(
 
 ```
 
+
+[hooks](#hooks)
+
+```javascript
+import React, { Component, useContext } from 'react';
+import { render } from 'react-dom';
+import { LocaleContext, withLocale } from 'react-localizer';
+
+const Hello = (props)=>{
+
+        const locale = useContext(LocaleContext);
+
+        return (
+            <div>
+              {locale.get('hello')}
+            </div>
+        );
+
+}
+
+```
+
 Dynamic Change Language
 
 ```javascript
